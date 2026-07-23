@@ -1,15 +1,13 @@
 #!/bin/bash
 set -eo pipefail
 
-PROJECT=/home/causalml26_team000/biscuit_project2/BISCUIT
-ENV=/home/causalml26_team000/.conda/envs/biscuit_env
-PYTHON="$ENV/bin/python"
+# Assumes the user has already activated their Conda environment 
+# and is running this script from the root of the BISCUIT repository.
 
-cd "$PROJECT"
-export PYTHONPATH="$PROJECT"
+export PYTHONPATH="."
 export PYTHONUNBUFFERED=1
 
-"$PYTHON" experiments/train_nf_2nd_order.py \
+python experiments/train_nf_2nd_order.py \
     --data_dir data/causal_world \
     --autoencoder_checkpoint data/causal_world/models/AE_32l_128hid.ckpt \
     --seq_len 3 \
@@ -20,5 +18,4 @@ export PYTHONUNBUFFERED=1
     --num_samples 2 \
     --batch_size 1024 \
     --warmup 100 \
-    --seed 42 \
-    --cluster
+    --seed 42
