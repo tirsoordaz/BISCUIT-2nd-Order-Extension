@@ -29,7 +29,7 @@ We evaluated the model's ability to disentangle true causal variables on the **C
 
 **Conclusion:** A score of 0.9652 demonstrates that the 2nd-order model successfully learned the causal representations without breaking the theoretical identifiability proofs, performing almost identically to the baseline.
 
-*(Note: You can view the full process and the plotted $R^2$ matrices in the included `biscuit_tutorial_2nd_order.ipynb` notebook!)*
+Note: You can view the full process and the plotted $R^2$ matrices in the included `biscuit_tutorial_2nd_order.ipynb` notebook.
 
 ---
 
