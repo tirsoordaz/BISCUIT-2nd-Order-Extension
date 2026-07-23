@@ -1,4 +1,4 @@
-    import torch
+import torch
 import torch.nn as nn
 
 # Import the original baseline model so we can inherit from it
