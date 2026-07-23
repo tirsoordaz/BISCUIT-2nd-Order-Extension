@@ -1,10 +1,91 @@
-# BISCUIT: 2nd-Order Temporal Extension
+# Causal Representation Learning Extensions: CITRIS & BISCUIT
 
-This repository is an architectural extension of the **[BISCUIT (phlippe/BISCUIT)](https://github.com/phlippe/BISCUIT)** framework for causal representation learning. 
+This repository contains the implementation, experiments, and report for our project on **Causal Representation Learning (CRL)**.
 
-While the original BISCUIT model successfully disentangles causal variables under a strict 1st-order Markov assumption, this project modifies the architecture to incorporate **2nd-order temporal dependencies**, proving that causal identifiability is maintained even when the model must condition on deeper historical contexts.
+The project extends two state-of-the-art causal representation learning frameworks:
+
+- **CITRIS** by introducing a configurable **Time Step Extension**, allowing the transition prior to condition on multiple previous latent states.
+- **BISCUIT** by implementing a **2nd-Order Temporal Extension**, enabling the transition model to use two previous latent states instead of one.
+
+The repository also contains the accompanying notebook, evaluation scripts, and experimental results used in the final report.
 
 ---
+
+# Repository Contents
+
+```
+.
+├── CRL.ipynb                      # Final project notebook
+├── README.md
+├── citris-requirements.txt        # Python environment used for the CITRIS experiments
+├── CML.pptx                       # Final project presentation
+│
+├── extensions/
+│   ├── BISCUIT/
+│   │   ├── biscuit_nf_2nd_order.py
+│   │   ├── train_nf_2nd_order.py
+│   │   └── run_nf_2nd_order.sh
+│   │
+│   └── CITRIS/
+│       ├── experiments/
+│       └── models/
+│
+└── results/
+    ├── baseline_r2_matrix.npz
+    ├── 2nd_order_r2_matrix.npz
+    └── results-citris/
+```
+
+---
+
+# CITRIS Time Step Extension
+
+The original CITRIS transition prior predicts the next latent state using only the previous latent state:
+
+\[
+p(z_{t+1}\mid z_t,I_{t+1})
+\]
+
+Our extension generalizes this formulation by introducing a configurable history length:
+
+\[
+p(z_{t+1}\mid z_{t-k+1},\ldots,z_t,I_{t+1})
+\]
+
+where `history_length = k`.
+
+The implementation modifies the transition prior and training pipeline to support arbitrary temporal context while remaining fully compatible with the original implementation when
+
+```text
+history_length = 1
+```
+
+Experiments were conducted on the **Interventional Pong** dataset using history lengths from **1 to 4**.
+
+Evaluation follows the original CITRIS protocol using:
+
+- Triplet Prediction
+- R² Correlation
+- Spearman Rank Correlation
+
+The repository includes:
+
+- implementation files
+- evaluation script (`analyze_results.py`)
+- generated figures
+- evaluation matrices
+- summary tables
+
+Running
+
+```bash
+python analyze_results.py
+```
+
+reproduces the tables and figures presented in the notebook.
+
+---
+# BISCUIT
 
 ## The Experiment: Moving Beyond the Markov Assumption
 
@@ -33,17 +114,9 @@ Note: You can view the full process and the plotted $R^2$ matrices in the includ
 
 ---
 
-## Repository Structure
+# Based on
 
-Instead of duplicating the entire original BISCUIT codebase, this repository only contains our specific modifications and evaluation results:
+- Lippe et al., **CITRIS** (https://github.com/phlippe/CITRIS)
+- Lippe et al., **BISCUIT** (https://github.com/phlippe/BISCUIT)
 
-```text
-├── README.md
-├── biscuit_tutorial_2nd_order.ipynb   # Full interactive tutorial and heatmap plotting
-├── results/
-│   ├── baseline_r2_matrix.npz         # Extracted 1st-order matrix
-│   └── 2nd_order_r2_matrix.npz        # Extracted 2nd-order matrix
-└── custom_code/
-    ├── biscuit_nf_2nd_order.py        # The custom 2nd-order PyTorch Lightning module
-    ├── train_nf_2nd_order.py          # Modified training script to load the custom class
-    └── run_nf_2nd_order.sh            # Bash script to execute the model with seq_len=3
+This repository contains only the code developed for the project together with the evaluation scripts and experimental results. The original implementations remain available from their respective official repositories.
