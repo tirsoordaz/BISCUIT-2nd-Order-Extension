@@ -11,7 +11,7 @@ While the original BISCUIT model successfully disentangles causal variables unde
 The standard BISCUIT Normalizing Flow models transitions by predicting the next state ($z_t$) using only the immediately preceding state ($z_{t-1}$) and an intervention/action ($a_t$):
 $$P(z_t \vert{} z_{t-1}, a_t)$$
 
-However, many real-world physical systems involve higher-order dynamics (such as velocity or acceleration) where a single prior frame is insufficient. My goal was to test if BISCUIT's identifiability proofs hold up when we force the Transition Prior to learn from a concatenated history of two previous timesteps:
+However, many real-world physical systems involve higher-order dynamics (such as velocity or acceleration) where a single prior frame is insufficient. Our goal was to test if BISCUIT's identifiability proofs hold up when we force the Transition Prior to learn from a concatenated history of two previous timesteps:
 $$P(z_t \vert{} z_{t-1}, z_{t-2}, a_t)$$
 
 By modifying the PyTorch dimensions, concatenating historical latents, and adjusting the `MultivarLinear` and `MultivarSequential` layers of the transition prior, the model successfully learned this 2nd-order dynamic.
@@ -35,7 +35,7 @@ We evaluated the model's ability to disentangle true causal variables on the **C
 
 ## Repository Structure
 
-Instead of duplicating the entire original BISCUIT codebase, this repository only contains my specific modifications and evaluation results:
+Instead of duplicating the entire original BISCUIT codebase, this repository only contains our specific modifications and evaluation results:
 
 ```text
 ├── README.md
