@@ -42,15 +42,15 @@ The repository also contains the accompanying notebook, evaluation scripts, and 
 
 The original CITRIS transition prior predicts the next latent state using only the previous latent state:
 
-\[
+$$
 p(z_{t+1}\mid z_t,I_{t+1})
-\]
+$$
 
 Our extension generalizes this formulation by introducing a configurable history length:
 
-\[
+$$
 p(z_{t+1}\mid z_{t-k+1},\ldots,z_t,I_{t+1})
-\]
+$$
 
 where `history_length = k`.
 
