@@ -6,7 +6,7 @@ While the original BISCUIT model successfully disentangles causal variables unde
 
 ---
 
-## 🧠 The Experiment: Moving Beyond the Markov Assumption
+## The Experiment: Moving Beyond the Markov Assumption
 
 The standard BISCUIT Normalizing Flow models transitions by predicting the next state ($z_t$) using only the immediately preceding state ($z_{t-1}$) and an intervention/action ($a_t$):
 $$P(z_t \vert{} z_{t-1}, a_t)$$
@@ -18,7 +18,7 @@ By modifying the PyTorch dimensions, concatenating historical latents, and adjus
 
 ---
 
-## 📊 Results & Causal Disentanglement
+## Results & Causal Disentanglement
 
 We evaluated the model's ability to disentangle true causal variables on the **CausalWorld** dataset by computing the average diagonal $R^2$ score between the learned latents and the true causal factors.
 
@@ -33,7 +33,7 @@ We evaluated the model's ability to disentangle true causal variables on the **C
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 Instead of duplicating the entire original BISCUIT codebase, this repository only contains my specific modifications and evaluation results:
 
